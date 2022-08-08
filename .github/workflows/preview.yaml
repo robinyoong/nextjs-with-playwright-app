@@ -7,7 +7,7 @@ on:
     branches-ignore:
       - main
 jobs:
-  deploy-preview:
+  deploy-preview-with-test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
