@@ -1,4 +1,4 @@
-name: GitHub Actions Vercel Production Deployment
+name: Vercel Production Deployment
 env:
   VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
   VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
@@ -19,7 +19,7 @@ jobs:
       - name: Build Project Artifacts
         run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
       - name: Install Playwright
-        run: npx playwright install --with-dep
+        run: npx playwright install --with-deps
       - name: Run tests
         run: yarn test:e2e --grep @production
       - name: Deploy Project Artifacts to Vercel
