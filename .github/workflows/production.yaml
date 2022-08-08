@@ -18,6 +18,8 @@ jobs:
         run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
       - name: Build Project Artifacts
         run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
+      - name: Install Playwright
+      - run: npx playwright install --with-dep
       - name: Run tests
         run: yarn test:e2e --grep @production
       - name: Deploy Project Artifacts to Vercel
