@@ -2,10 +2,10 @@ name: UAT Deployment Action
 env:
   VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
   VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-  
 on: [ push, pull_request ]
-    branches:
-      - uat
+  branches:
+    - uat
+
 jobs:
   deploy-preview-with-test:
     runs-on: ubuntu-latest
