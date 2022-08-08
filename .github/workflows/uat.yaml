@@ -24,7 +24,7 @@ jobs:
         run: echo ::set-output name=url::$(cat deployment-url.txt)
       - run: yarn install --frozen-lockfile
       - name: Install Playwright
-      - run: npx playwright install --with-deps
+        run: npx playwright install --with-deps
       - name: Run tests
         run: yarn test:e2e --grep @uat
         env:
