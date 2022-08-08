@@ -1,4 +1,4 @@
-name: Vercel Preview Deployment
+name: Playwright Test Preview Deployment
 env:
   VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
   VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
@@ -21,7 +21,7 @@ jobs:
       - run: yarn install --frozen-lockfile
       - run: npx playwright install --with-deps
       - name: Run tests
-        run: yarn run test:e2e
+        run: yarn test:e2e
         env:
           DATABASE_URL: ${{secrets.DATABASE_URL}}
           BASE_URL: ${{steps.deployment-url.outputs.url}}
