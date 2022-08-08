@@ -22,7 +22,7 @@ jobs:
       - run: yarn install --frozen-lockfile
       - run: npx playwright install --with-deps
       - name: Run tests
-        run: yarn test:e2e @feature
+        run: yarn test:e2e --grep @feature
         env:
           DATABASE_URL: ${{secrets.DATABASE_URL}}
           BASE_URL: ${{steps.deployment-url.outputs.url}}
