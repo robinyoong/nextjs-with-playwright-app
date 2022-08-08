@@ -1,0 +1,29 @@
+name: Feature Deployment Action
+env:
+  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+on:
+  push:
+    branches-ignore:
+      - uat
+      - main
+jobs:
+  deploy-preview-with-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install Vercel CLI
+        run: npm install --global vercel
+      - name: Deploy Project to Vercel
+        run: vercel --token=${{ secrets.VERCEL_TOKEN }} > deployment-url.txt
+      - name: Set deployment url to output
+        id: deployment-url
+        run: echo ::set-output name=url::$(cat deployment-url.txt)
+      - run: yarn install --frozen-lockfile
+      - name: Install Playwright
+        run: npx playwright install --with-deps
+      - name: Run tests
+        run: yarn test:e2e --grep @feature
+        env:
+          DATABASE_URL: ${{secrets.DATABASE_URL}}
+          BASE_URL: ${{steps.deployment-url.outputs.url}}

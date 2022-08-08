@@ -1,11 +1,15 @@
-name: Playwright Test Preview Deployment
+name: UAT Deployment Action
 env:
   VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
   VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
 on:
   push:
-    branches-ignore:
-      - main
+    branches:
+      - uat
+  pull_request:
+    branches:
+      - uat
+
 jobs:
   deploy-preview-with-test:
     runs-on: ubuntu-latest
@@ -19,9 +23,10 @@ jobs:
         id: deployment-url
         run: echo ::set-output name=url::$(cat deployment-url.txt)
       - run: yarn install --frozen-lockfile
-      - run: npx playwright install --with-deps
+      - name: Install Playwright
+        run: npx playwright install --with-deps
       - name: Run tests
-        run: yarn test:e2e
+        run: yarn test:e2e --grep @uat
         env:
           DATABASE_URL: ${{secrets.DATABASE_URL}}
           BASE_URL: ${{steps.deployment-url.outputs.url}}
