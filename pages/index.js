@@ -16,7 +16,7 @@ export default function Home() {
         <h1 className={styles.title}>
           Welcome to{" "}
           <a href="https://nextjs.org">
-            Next.js with new features added with test!!!
+            Next.js with new features added with 3 tests
           </a>
         </h1>
 
